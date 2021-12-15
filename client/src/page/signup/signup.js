@@ -9,7 +9,10 @@ function Signup() {
 
     function handleSignUp(e) {
         e.preventDefault();
-        console.log({"ID": ID, "email": email, "pass":pass, "passSub":passSub, "phone":phone});
+        console.log({ "ID": ID, "email": email, "pass": pass, "passSub": passSub, "phone": phone });
+        if (pass !== passSub) {
+            console.log({ "not the same pass": false });
+        }
     }
 
     return (
