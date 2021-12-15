@@ -6,7 +6,7 @@ import logo from '../../images/Logo.jpeg'
 
 export default function login() {
 
-    const [ID, setID] = useState("");
+    // const [ID, setID] = useState("");
 
     return (
         <div className="loginPage">
