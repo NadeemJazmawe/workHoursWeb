@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './login.css'
 
 import logo from '../../images/Logo.jpeg'
 
 
 export default function login() {
+
+    const [ID, setID] = useState("");
+
     return (
         <div className="loginPage">
             
@@ -23,11 +26,22 @@ export default function login() {
                 <img src={logo} />
             </div>
 
-            <div className="habal">
-                
+            <div className="loginSide">
+                <div className="userName">
+                    <label>User ID </label>
+                    <input type="text" id="id" name="username"/>
+                </div>
+
+                <div className="password" >
+                    <label>Password </label>
+                    <input type="password" id="password" />
+                </div>
+                <br />
+                <button type="submit"/>
             </div>
          
 
         </div>
     )
 }
+
