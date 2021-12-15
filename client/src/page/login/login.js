@@ -4,9 +4,18 @@ import './login.css'
 import logo from '../../images/Logo.jpeg'
 
 
-export default function login() {
+export default function Login() {
 
-    // const [ID, setID] = useState("");
+    const [ID, setID] = useState("");
+    function handleLogin(e){
+        e.preventDefault();
+        fetch('/login')
+        .then(r => r.json())
+        .then(data => {
+            console.log({data});
+        })
+        console.log({"ok":true});
+    }
 
     return (
         <div className="loginPage">
@@ -26,19 +35,22 @@ export default function login() {
                 <img src={logo} />
             </div>
 
-            <div className="loginSide">
+            <form onSubmit={handleLogin} className="loginSide">
                 <div className="userName">
                     <label>User ID </label>
-                    <input type="text" id="id" name="username"/>
+                    <input type="text" id="id" name="username" onChange={(e)=>{
+                        setID(e.target.value);
+                    }} required/>
                 </div>
 
                 <div className="password" >
                     <label>Password </label>
-                    <input type="password" id="password" />
+                    <input type="password" id="password" required />
                 </div>
                 <br />
-                <button type="submit"/>
-            </div>
+                <button type="submit">login</button>
+                
+            </form>
          
 
         </div>

@@ -7,6 +7,12 @@ app.get('/test', (req, res)=>{
     res.send({"ok": true});
 })
 
+app.get('/login', (req, res)=>{
+    // const {userName} = req.body;
+    // console.log({"userName":userName});
+    res.send({"ok":true});
+})
+
 // Server run
 const port = process.env.PORT || 3001;
 
