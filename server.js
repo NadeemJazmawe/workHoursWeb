@@ -3,8 +3,8 @@ const app = express();
 
 app.use(express.static("client/build"));
 
-app.get('/*',(req, res)=>{
-  res.sendFile(__dirname + '/client/build/index.html');
+app.get('/test', (req, res)=>{
+    res.send({"ok": true});
 })
 
 // Server run
