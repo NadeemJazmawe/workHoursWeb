@@ -8,6 +8,7 @@ function Signup() {
     const [phone, setPhone] = useState("");
 
     function handleSignUp(e) {
+        e.preventDefault();
         console.log({"ID": ID, "email": email, "pass":pass, "passSub":passSub, "phone":phone});
     }
 
