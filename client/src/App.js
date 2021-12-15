@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import Login from './page/login/login.js';
+import Signup from './page/signup/signup';
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
   return (
     <div className="App">
       {/* hello world */}
-      <Login />
+      <Signup />
     </div>
   );
 }
