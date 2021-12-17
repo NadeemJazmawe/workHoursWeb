@@ -14,7 +14,7 @@ function Signup() {
             console.log({ "not the same pass": false });
         }
 
-        fetch('/user/signup', {
+        fetch('/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

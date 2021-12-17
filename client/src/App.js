@@ -1,4 +1,8 @@
 // import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
 import './App.css';
 import Login from './page/login/login.js';
 import Signup from './page/signup/signup';
@@ -7,11 +11,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
 
-  function handleServer() {
-    fetch('/test')
-      .then(r => r.json())
-      .then(data => { console.log(data); })
-  }
   return (
     <Router>
       <div>
