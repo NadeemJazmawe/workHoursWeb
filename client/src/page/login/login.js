@@ -7,14 +7,27 @@ import logo from '../../images/Logo.jpeg'
 export default function Login() {
 
     const [ID, setID] = useState("");
+    const [pass, setPass] = useState("");
+    
     function handleLogin(e){
         e.preventDefault();
-        fetch('/login')
-        .then(r => r.json())
-        .then(data => {
-            console.log({data});
-        })
-        console.log({"ok":true});
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ID: ID, pass:pass })
+        }).then(r => r.json())
+            .then(data => {
+                console.log(data);
+                if(data.ok){
+                    console.log("connected!");
+                }
+                else{
+                    console.log("please sign up");
+                }
+            })
+
     }
 
     return (
@@ -45,7 +58,9 @@ export default function Login() {
 
                 <div className="password" >
                     <label>Password </label>
-                    <input type="password" id="password" required />
+                    <input type="password" id="password" required onChange={(e)=>{
+                        setPass(e.target.value);
+                    }}/>
                 </div>
                 <br />
                 <button type="submit">login</button>
