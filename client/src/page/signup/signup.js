@@ -13,6 +13,18 @@ function Signup() {
         if (pass !== passSub) {
             console.log({ "not the same pass": false });
         }
+
+        fetch('/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ID: ID, pass:pass })
+        }).then(r => r.json())
+            .then(data => {
+                console.log(data);
+            })
+
     }
 
     return (
