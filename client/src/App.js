@@ -28,8 +28,9 @@ function App() {
         <Switch>
           <Route path="/login"><Login /></Route>
           <Route path="/signup"><Signup /></Route>
-          <Route path="/"><Login /></Route>
           <Route path="/resetPass"><ResetPass /></Route>
+
+          <Route path="/"><Login /></Route>
         </Switch>
       </div>
     </Router>
