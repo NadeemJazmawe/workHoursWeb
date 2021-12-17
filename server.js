@@ -1,5 +1,7 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
+app.use(express.json())
 
 app.use(express.static("client/build"));
 
@@ -7,9 +9,9 @@ app.get('/test', (req, res)=>{
     res.send({"ok": true});
 })
 
-app.get('/login', (req, res)=>{
-    // const {userName} = req.body;
-    // console.log({"userName":userName});
+app.post('/signup', (req, res)=>{
+    const {ID, pass} = req.body;
+    console.log({"ID":ID});
     res.send({"ok":true});
 })
 
