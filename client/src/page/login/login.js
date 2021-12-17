@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import './login.css'
+import {Link} from 'react-router-dom'
 
 import logo from '../../images/Logo.jpeg'
 
@@ -11,7 +12,7 @@ export default function Login() {
     
     function handleLogin(e){
         e.preventDefault();
-        fetch('/login', {
+        fetch('/user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,6 +67,12 @@ export default function Login() {
                 <button type="submit">login</button>
                 
             </form>
+
+            <div className="other">
+                <a href='http://localhost:3001/'>SignIn   </a>
+
+                <a href='http://localhost:3000/'>Forget Pass</a>
+            </div>
          
 
         </div>
