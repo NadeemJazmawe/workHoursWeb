@@ -23,6 +23,7 @@ export default function Login() {
                 console.log(data);
                 if(data.ok){
                     console.log("connected!");
+                    
                 }
                 else{
                     console.log("please sign up");
