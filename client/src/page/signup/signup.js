@@ -9,22 +9,25 @@ function Signup() {
 
     function handleSignUp(e) {
         e.preventDefault();
-        console.log({ "ID": ID, "email": email, "pass": pass, "passSub": passSub, "phone": phone });
+        // console.log({ "ID": ID, "email": email, "pass": pass, "passSub": passSub, "phone": phone });
         if (pass !== passSub) {
             console.log({ "not the same pass": false });
+        } else {
+            fetch('/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ID: ID, email: email, pass: pass, phone: phone })
+            }).then(r => r.json())
+                .then(data => {
+                    if (data.ok) {
+                        console.log({ "User added": true });
+                    } else {
+                        console.log({ "User added": false });
+                    }
+                })
         }
-
-        fetch('/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ID: ID, pass:pass })
-        }).then(r => r.json())
-            .then(data => {
-                console.log(data);
-            })
-
     }
 
     return (

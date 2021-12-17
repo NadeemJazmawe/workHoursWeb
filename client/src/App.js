@@ -12,14 +12,18 @@ function App() {
       <div>
         <nav>
           <ul>
-            <li>
+            <li className="active-nav">
               <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/signup">SignUp</Link>
             </li>
           </ul>
         </nav>
         <Switch>
           <Route path="/login"><Login /></Route>
-          <Route path="/"><Login/></Route>
+          <Route path="/signup"><Signup /></Route>
+          <Route path="/"><Login /></Route>
         </Switch>
       </div>
     </Router>

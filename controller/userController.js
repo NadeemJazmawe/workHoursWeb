@@ -16,7 +16,15 @@ exports.Login = async (req, res) => {
 }
 
 exports.SignUp = async (req, res) => {
-    const { ID, pass } = req.body;
-    console.log({ "ID": ID });
+    const { ID, email, pass, phone } = req.body;
+    const userToAdd = new Users({
+        ID:ID,
+        Password: pass,
+        Email: email,
+        Phone: phone
+      });
+      userToAdd.save().then(() => {
+        console.log("user saved");
+      });
     res.send({ "ok": true });
 }
