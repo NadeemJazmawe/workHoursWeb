@@ -3,7 +3,9 @@ import './App.css';
 import Login from './page/login/login.js';
 import Signup from './page/signup/signup';
 
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import ResetPass from './page/forgetPass.js/resetPass';
 
 function App() {
 
