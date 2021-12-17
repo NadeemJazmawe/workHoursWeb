@@ -12,31 +12,9 @@ app.get('/test', (req, res)=>{
 const url = "mongodb+srv://test-website567:Nn123456@nadeem-cluster.hevx3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" ;//"mongodb://127.0.0.1:27017";
 mongoose.connect(url);
 
-const Users = mongoose.model('Users', { ID: String, Password:String, Email:String, Phone:String });
-
-const user = new Users({ ID: 'nadeem', Password:"admin", Email:"nadeem@gmail.com", Phone:"0500" });
-// user.save().then(() => console.log('meow'));
-
-app.post('/signup', (req, res)=>{
-    const {ID, pass} = req.body;
-    console.log({"ID":ID});
-    res.send({"ok":true});
-})
-
-app.post('/login', async (req, res)=> {
-    const {ID, pass} = req.body;
-    const user = await Users.findOne({ID: ID});
-    if(user != null){
-        if(pass != user.Password){
-            res.send({"ok": false, "error": "wrong password!"});
-        }else{
-            res.send({"ok":true});
-        }
-    }
-    else{
-        res.send({"ok":false, "error":"user not found!"});
-    }
-})
+const userRouter = require("./routes/userRoute");
+//router usage
+app.use("/user", userRouter);
 
 // Server run
 const port = process.env.PORT || 3001;
