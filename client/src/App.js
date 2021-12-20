@@ -7,6 +7,7 @@ import Signup from './page/signup/signup';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ResetPass from './page/resetPass/resetPass.js';
 import ChangePass from './page/resetPass/changePass';
+import HomePage from './page/homePage/homePage';
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
             <li>
               <Link to="/changePassword">change Password</Link>
             </li>
+            <li>
+              <Link to="/homePage">home page</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
@@ -34,6 +38,7 @@ function App() {
           <Route path="/signup"><Signup /></Route>
           <Route path="/resetPass"><ResetPass /></Route>
           <Route path="/changePassword"><ChangePass /></Route>
+          <Route path="/homePage"><HomePage /></Route>
 
           <Route path="/"><Login /></Route>
         </Switch>
