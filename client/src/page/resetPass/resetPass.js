@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function ResetPass() {
+function ResetPass() {
 
     const [email, setEmail] = useState("")
 
@@ -25,3 +25,4 @@ export default function ResetPass() {
         </div>
     )
 }
+export default ResetPass;
