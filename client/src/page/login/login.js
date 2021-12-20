@@ -70,9 +70,8 @@ export default function Login() {
             </form>
 
             <div className="other">
-                <a href='http://localhost:3001/'>SignIn   </a>
-
-                <a href='http://localhost:3000/'>Forget Pass</a>
+                <Link to="/signup">SignUp</Link>
+                <Link to="/resetpass">Reset Password</Link>
             </div>
          
 

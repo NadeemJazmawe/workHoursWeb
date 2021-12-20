@@ -6,9 +6,17 @@ require("dotenv").config();
 
 app.use(express.static("client/build"));
 
-app.get('/test', (req, res)=>{
-    res.send({"ok": true});
+app.get('/', function (req, res) {
+    // Cookies that have not been signed
+    console.log('Cookies: ', req.cookies)
+
+    // Cookies that have been signed
+    console.log('Signed Cookies: ', req.signedCookies)
 })
+
+//cookies
+const cookieParser = require('cookie-parser');
+app.use(cookieParser())
 
 mongoose.connect(process.env.DB_URL);
 
