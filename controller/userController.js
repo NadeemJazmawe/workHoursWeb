@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const Token = require("../Schema/Tokens");
 const jwt = require('jsonwebtoken');
 const res = require("express/lib/response");
+const User = require("../schema/Users");
 
 exports.Login = async (req, res) => {
     const { ID, pass } = req.body;
@@ -39,10 +40,12 @@ exports.ResetPass = async (req, res) =>{
     const user = await Users.findOne({Email: email});
 
     if(user != null){
-      const _token = jwt.sign({ email: email, date: new Date(), status:false }, process.env.secret);
+      const _token = jwt.sign({ email: email, date: new Date() }, process.env.secret);
       const tok = new Token({
+        token1 : _token,
         Email: email,
-        status: false
+        status: false,
+        Date: new Date()
       })
       tok.save().then(() => {
         console.log("token saved");
@@ -74,39 +77,48 @@ exports.ResetPass = async (req, res) =>{
 }
 
 exports.ChangePass = async (req, res) => {
-  const {token} = req.query;
-  const {newPass} = req.body;
-  console.log({"token":token});
-  jwt.verify(token, process.env.secret, function(err, decoded) {
-    if(err){
-      res.send({"ok":false , "msg":"token expired"})
-    }
-    else{
-      console.log({"decoded":decoded.email})
-      const flag  = Token.findOne({Email : decoded.email});
-        if(flag != null){
-          if(flag.status != false){
-            res.send({"ok":false , "msg":"your password has been changed"});
-          }
-          else{
-            const user = Users.updateOne({Email:decoded.email}, {Password: newPass}, function(err, result){
-              if(err){
-                res.send({"ok":false})
-              }else{
-                flag.updateOne({Email: decoded.Email}, {status: true}, function(err, resultToken){
-                  if(err){
-                    res.send({"ok":false});
-                  }else{
-                    res.send({"ok":true});
-                  }
-                })
+  const { newPass } = req.body;
+  const { token } = req.query;
+
+  const searchToken = await Token.findOne({ token1:token });
+  if (searchToken === null) {
+    res.send({ ok: false, message: "change password Failed" });
+  }
+  else if (!searchToken.status) {
+    try {
+      jwt.verify(token, process.env.secret, (err, data) => {
+        if (err) {
+          console.log(err);
+          res.send({ ok: false });
+        }
+        else {
+          const timeOver = (new Date() - new Date(data.date)) / 60000.;
+          console.log(`time: ${timeOver} minutes`);
+          if (timeOver < 10) {
+            User.updateOne(
+              { Email: data.email },
+              { Password: newPass },
+              function (err, result) {
+                if (err) {
+                  res.send(err);
+                } else {
+                  Token.updateOne({ token1: token }, { status: true }, function (err, result) { if (err) { console.log("error token!"); } else { console.log("token status changed!") } });
+                  res.send({ ok: true, msg: `password changed sucessfuly for ${data.email} ` });
+                }
               }
-            })
+            );
+          }
+          else {
+            res.send({ ok: false, msg: `password cannot be changed due to time over!` });
           }
         }
+      })
     }
-
-  });
-
-
+    catch (e) {
+      res.send({ ok: false, msg: "error!" });
+    }
+  }
+  else {
+    res.send({ ok: false, msg: "password already changed!" });
+  }
 }

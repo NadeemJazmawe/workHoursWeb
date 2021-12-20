@@ -6,10 +6,22 @@ function ResetPass() {
 
     function handleResetPass(e){
         e.preventDefault();
-
-        console.log({"ok":true})
-    }
-
+        fetch('/user/resetPass', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        }).then(r => r.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log({ "password changed": true });
+                } else {
+                    console.log({ "password changed": false });
+                }
+            })
+        }
+        
     return (
         <div className="resetPassPage">
 
