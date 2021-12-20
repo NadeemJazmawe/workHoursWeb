@@ -10,4 +10,13 @@ router
     .route("/signup")
     .post(userController.SignUp);
 
+router
+    .route("/resetPass")
+    .post(userController.ResetPass);
+
+router
+    .route("/changePassword")
+    .post(userController.ChangePass);
+
+
 module.exports = router;

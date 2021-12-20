@@ -2,15 +2,26 @@ import React, { useState } from 'react'
 
 export default function ResetPass() {
 
-    const [Mail, setMail] = useState("")
+    const [email, setEmail] = useState("")
+
+    function handleResetPass(e){
+        e.preventDefault();
+
+        console.log({"ok":true})
+    }
 
     return (
         <div className="resetPassPage">
 
-            <label>Mail </label>
-            <input type="text" onChange={ e =>{
-                setMail(e.target.value);
-            }} required/>
+            <form onSubmit={handleResetPass}>
+                <label>Email </label>
+                <input type="text" onChange={ e =>{
+                    setEmail(e.target.value);
+                }} required/>
+                <br />
+                <button type="submit">Sent reset email</button>
+            </form>
+           
         </div>
     )
 }
