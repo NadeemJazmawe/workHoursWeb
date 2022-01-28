@@ -6,11 +6,16 @@ const res = require("express/lib/response");
 const User = require("../schema/Users");
 const cookieParser = require('cookie-parser');
 
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256');
+
 exports.Login = async (req, res) => {
   const { ID, pass } = req.body;
+  const hashPass = crypto.createHash('sha256').update(pass).digest('base64'); 
+  console.log(hash);
   const user = await Users.findOne({ ID: ID });
   if (user != null) {
-    if (pass != user.Password) {
+    if (hashPass != user.Password) {
       res.send({ "ok": false, "error": "wrong password!" });
     } else {
       res.cookie('user', 'admin', {maxAge: 360000});
@@ -26,7 +31,7 @@ exports.SignUp = async (req, res) => {
   const { ID, email, pass, phone } = req.body;
   const userToAdd = new Users({
     ID: ID,
-    Password: pass,
+    Password: crypto.createHash('sha256').update(pass).digest('base64'),
     Email: email,
     Phone: phone
   });
@@ -99,7 +104,7 @@ exports.ChangePass = async (req, res) => {
           if (timeOver < 10) {
             User.updateOne(
               { Email: data.email },
-              { Password: newPass },
+              { Password: crypto.createHash('sha256').update(newPass).digest('base64') },
               function (err, result) {
                 if (err) {
                   res.send(err);
